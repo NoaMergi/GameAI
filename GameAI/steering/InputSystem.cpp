@@ -4,10 +4,7 @@
 InputSystem::InputSystem()
 {
 	mpEventQueue = NULL;
-	mEscape = true;
-	mF = true;
-	mS = true;
-	mLMouseClick = true;
+
 }
 
 
@@ -17,7 +14,7 @@ InputSystem::~InputSystem()
 }
 
 
-void InputSystem::init()
+void InputSystem::init(bool isMouseVisible)
 {
 	
 
@@ -40,6 +37,15 @@ void InputSystem::init()
 		std::terminate();
 	}
 
+	if (isMouseVisible)
+	{
+		if (!al_hide_mouse_cursor(gpGame->getGraphicsSystem()->getDisplay()))
+		{
+			printf("Mouse cursor not able to be hidden!\n");
+			std::terminate();
+		}
+	}
+
 	al_register_event_source(mpEventQueue, al_get_display_event_source(gpGame->getGraphicsSystem()->getDisplay()));
 	al_register_event_source(mpEventQueue, al_get_keyboard_event_source());
 	al_register_event_source(mpEventQueue, al_get_mouse_event_source());
@@ -59,28 +65,24 @@ void InputSystem::update()
 			{
 				gpEventSystem->fireEvent(QUIT_GAME);
 			}
-			else if (mEvent.mouse.button == RIGHT_CLICK)
+			else if (mEvent.mouse.button == A)
 			{
-				Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				gpEventSystem->fireEvent(MousePosEvent(DELETE_UNIT, temp));
+				gpEventSystem->fireEvent(ADD_DINAMIC_ARRIVE);
+				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
+				//gpEventSystem->fireEvent(MousePosEvent(DELETE_UNIT, temp));
 			}
-			else if (mEvent.mouse.button == LEFT_CLICK)
+			else if (mEvent.mouse.button == S)
 			{
-				Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				gpEventSystem->fireEvent(MousePosEvent(ADD_UNIT, temp));
+				gpEventSystem->fireEvent(ADD_DINAMIC_SEEK);
+				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
+				//gpEventSystem->fireEvent(MousePosEvent(ADD_UNIT, temp));
 			}
-			else if (mEvent.keyboard.keycode == SPACE)
+			else if (mEvent.keyboard.keycode == D)
 			{
-				gpEventSystem->fireEvent(FREEZE_ANIMATION);
+				gpEventSystem->fireEvent(DELETE_UNIT);
 			}
 		}
 
-		/*
-		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		{
-			mShouldExit = true;
-		}
-		*/
 	}
 }
 

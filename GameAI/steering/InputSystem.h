@@ -14,15 +14,15 @@ public:
 	InputSystem();
 	~InputSystem();
 
-	void init();
+	void init(bool isMouseVisible);
 	void cleanup();
 	void update();
-
+	/*
 	bool isEscapeUp(){ return mEscape; }
 	bool isFUp(){ return mF; }
 	bool isSUp(){ return mS; }
 	bool isLMouseUp(){ return mLMouseClick; }
-
+	*/
 	int getMouseX(){ return mEvent.mouse.x; }
 	int getMouseY(){ return mEvent.mouse.y; }
 	
@@ -99,10 +99,6 @@ private:
 	ALLEGRO_EVENT_QUEUE *mpEventQueue;
 	ALLEGRO_EVENT_TYPE mCurrentType;
 	
-	bool pressed_keys[ALLEGRO_KEY_MAX];
-	bool mEscape;
-	bool mF;
-	bool mS;
-	bool mLMouseClick;
+	//bool pressed_keys[ALLEGRO_KEY_MAX];
 };
 

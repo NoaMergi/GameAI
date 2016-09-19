@@ -103,22 +103,10 @@ bool Game::init()
 	}
 
 	mpInputSystem = new InputSystem();
-	mpInputSystem->init();
+	mpInputSystem->init(true);
 
 
-	//should probably be done in the InputSystem!
-	if( !al_install_keyboard() )
-	{
-		printf( "Keyboard not installed!\n" ); 
-		return false;
-	}
 
-	//should probably be done in the InputSystem!
-	if( !al_install_mouse() )
-	{
-		printf( "Mouse not installed!\n" ); 
-		return false;
-	}
 
 	//should be somewhere else!
 	al_init_font_addon();
@@ -133,13 +121,6 @@ bool Game::init()
 	if( mpFont == NULL )
 	{
 		printf( "ttf font file not loaded properly!\n" ); 
-		return false;
-	}
-
-	//show the mouse
-	if( !al_hide_mouse_cursor( mpGraphicsSystem->getDisplay() ) )
-	{
-		printf( "Mouse cursor not able to be hidden!\n" ); 
 		return false;
 	}
 
@@ -288,31 +269,14 @@ void Game::processLoop()
 
 	mpInputSystem->update();
 
-	//all this should be moved to InputManager!!!
-	{
-		//get mouse state
-		ALLEGRO_MOUSE_STATE mouseState;
-		al_get_mouse_state( &mouseState );
+	//create mouse text
+	stringstream mousePos;
+	mousePos << mpInputSystem->getMouseX() << ":" << mpInputSystem->getMouseY();
 
-		//create mouse text
-		stringstream mousePos;
-		mousePos << mouseState.x << ":" << mouseState.y;
+	//write text at mouse position
+	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
 
-		//write text at mouse position
-		al_draw_text( mpFont, al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
-
-		mpGraphicsSystem->swap();
-
-		//get current keyboard state
-		ALLEGRO_KEYBOARD_STATE keyState;
-		al_get_keyboard_state( &keyState );
-
-		//if escape key was down then exit the loop
-		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
-		{
-			//mShouldExit = true;
-		}
-	}
+	mpGraphicsSystem->swap();
 }
 
 bool Game::endLoop()

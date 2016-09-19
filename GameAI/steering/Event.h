@@ -9,7 +9,7 @@ using namespace std;
 enum EventType
 {
 	INVALID_EVENT_TYPE = -1,
-	ADD_UNIT, DELETE_UNIT, QUIT_GAME, FREEZE_ANIMATION,
+	ADD_DINAMIC_ARRIVE, ADD_DINAMIC_SEEK, DELETE_UNIT, QUIT_GAME,
 	/*
 	A, B, C, D,	E,	F,	G,	H,	I,	J,	K,	L,	M,	N,	O,	P,	Q,	R,	S,	T,	U,	V,	W,	X,	Y,	Z,	
 	N0, N1, N2, N3, N4, N5, N6, N7, N8, N9,
@@ -19,7 +19,7 @@ enum EventType
 };
 
 const string EVENT_NAMES[NUM_EVENT_TYPES] = 
-{ "add unit", "delete unit", "quit game", "freeze animation"
+{ "add dinamic arrive unit", "add dinamic seek unit", "delete unit", "quit game",
 	/*"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
 "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 "escape", "left click", "right click"*/

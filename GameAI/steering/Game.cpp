@@ -14,6 +14,8 @@
 #include "GraphicsSystem.h"
 #include "GraphicsBuffer.h"
 #include "GraphicsBufferManager.h"
+#include "GameMessage.h"
+#include "InputSystem.h"
 #include "GameMessageManager.h"
 #include "Sprite.h"
 #include "SpriteManager.h"
@@ -100,6 +102,10 @@ bool Game::init()
 		return false;
 	}
 
+	mpInputSystem = new InputSystem();
+	mpInputSystem->init();
+
+
 	//should probably be done in the InputSystem!
 	if( !al_install_keyboard() )
 	{
@@ -153,6 +159,9 @@ bool Game::init()
 
 	mpMessageManager = new GameMessageManager();
 
+	gpEventSystem->addListener(QUIT_GAME, this);
+	
+
 	//load buffers
 	mBackgroundBufferID = mpGraphicsBufferManager->loadBuffer("wallpaper.bmp");
 	mPlayerIconBufferID = mpGraphicsBufferManager->loadBuffer("arrow.bmp");
@@ -198,6 +207,8 @@ bool Game::init()
 
 void Game::cleanup()
 {
+	gpEventSystem->removeListenerFromAllEvents(this);
+
 	//delete units
 	delete mpUnit;
 	mpUnit = NULL;
@@ -220,6 +231,8 @@ void Game::cleanup()
 	mpGraphicsBufferManager = NULL;
 	delete mpSpriteManager;
 	mpSpriteManager = NULL;
+	delete mpInputSystem;
+	mpInputSystem = NULL;
 	delete mpMessageManager;
 	mpMessageManager = NULL;
 
@@ -273,7 +286,7 @@ void Game::processLoop()
 		MESSAGE_MANAGER->addMessage( pMessage, 0 );
 	}
 
-
+	mpInputSystem->update();
 
 	//all this should be moved to InputManager!!!
 	{
@@ -297,7 +310,7 @@ void Game::processLoop()
 		//if escape key was down then exit the loop
 		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
 		{
-			mShouldExit = true;
+			//mShouldExit = true;
 		}
 	}
 }
@@ -307,6 +320,14 @@ bool Game::endLoop()
 	//mpMasterTimer->start();
 	mpLoopTimer->sleepUntilElapsed( LOOP_TARGET_TIME );
 	return mShouldExit;
+}
+
+void Game::handleEvent(const Event& theEvent)
+{
+	if (theEvent.getType() == QUIT_GAME)
+	{
+		mShouldExit = true;
+	}
 }
 
 float genRandomBinomial()

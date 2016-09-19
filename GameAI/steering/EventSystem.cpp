@@ -14,6 +14,7 @@ EventSystem::~EventSystem()
 
 void EventSystem::addListener(EventType type, EventListener* pListener)
 {
+	cout << this;
 	mListenerMap.insert( pair< EventType, EventListener* >(type, pListener) );
 }
 

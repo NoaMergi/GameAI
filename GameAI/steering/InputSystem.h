@@ -14,7 +14,7 @@ public:
 	InputSystem();
 	~InputSystem();
 
-	void init(EventSystem* aEventSystem);
+	void init();
 	void cleanup();
 	void update();
 
@@ -99,7 +99,6 @@ private:
 	ALLEGRO_EVENT_QUEUE *mpEventQueue;
 	ALLEGRO_EVENT_TYPE mCurrentType;
 	
-	EventSystem* mpEventSystem;
 	bool pressed_keys[ALLEGRO_KEY_MAX];
 	bool mEscape;
 	bool mF;

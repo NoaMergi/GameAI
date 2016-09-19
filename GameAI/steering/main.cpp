@@ -45,6 +45,7 @@ int main(int argc, char **argv)
 
 	//create the global game object
 	gpGame = new Game;
+	gpEventSystem = new EventSystem;
 	//init the game
 	bool goodGame = gpGame->init();
 	if(!goodGame) 
@@ -84,6 +85,8 @@ int main(int argc, char **argv)
 	gpGame->cleanup();
 	delete gpGame;
 	gpGame = NULL;
+	delete gpEventSystem;
+	gpEventSystem = NULL;
 
 	delete gpPerformanceTracker;
 	gMemoryTracker.reportAllocations( cout );

@@ -2,6 +2,8 @@
 
 #include "Trackable.h"
 #include "PerformanceTracker.h"
+#include "EventSystem.h"
+#include "EventListener.h"
 #include "Defines.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -15,6 +17,7 @@ class SpriteManager;
 class KinematicUnit;
 class GameMessageManager;
 class Timer;
+class InputSystem;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -22,7 +25,7 @@ const IDType AI_ICON_SPRITE_ID = 2;
 
 const float LOOP_TARGET_TIME = 33.3f;//how long should each frame of execution take? 30fps = 33.3ms/frame
 
-class Game:public Trackable
+class Game:public EventListener
 {
 public:
 	Game();
@@ -48,11 +51,14 @@ public:
 	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else
 
+	void handleEvent(const Event& theEvent);
+
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
 	SpriteManager* mpSpriteManager;
 	GameMessageManager* mpMessageManager;
+	InputSystem* mpInputSystem;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	bool mShouldExit;

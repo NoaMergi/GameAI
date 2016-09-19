@@ -1,5 +1,5 @@
 #include "InputSystem.h"
-#include "GameSystem.h"
+#include "Game.h"
 
 InputSystem::InputSystem()
 {
@@ -17,14 +17,9 @@ InputSystem::~InputSystem()
 }
 
 
-void InputSystem::init(EventSystem* aEventSystem)
+void InputSystem::init()
 {
-	mpEventQueue = al_create_event_queue();
-	if (mpEventQueue == NULL)
-	{
-		std::cout << "This could be a problem... Allegro couldn't initialize the image addon.\n";
-		std::terminate();
-	}
+	
 
 	if (!al_install_keyboard()) ///setup the keyboard
 	{
@@ -38,11 +33,18 @@ void InputSystem::init(EventSystem* aEventSystem)
 		std::terminate();
 	}
 
-	al_register_event_source(mpEventQueue, al_get_display_event_source(GameSystem::getInstance()->getGraphicSystem()->getDisplay()));
+	mpEventQueue = al_create_event_queue();
+	if (mpEventQueue == NULL)
+	{
+		std::cout << "This could be a problem... Allegro couldn't initialize the image addon.\n";
+		std::terminate();
+	}
+
+	al_register_event_source(mpEventQueue, al_get_display_event_source(gpGame->getGraphicsSystem()->getDisplay()));
 	al_register_event_source(mpEventQueue, al_get_keyboard_event_source());
 	al_register_event_source(mpEventQueue, al_get_mouse_event_source());
 	std::cout << ALLEGRO_KEY_A;
-	mpEventSystem = aEventSystem;
+
 }
 
 
@@ -55,29 +57,38 @@ void InputSystem::update()
 		{
 			if (mEvent.keyboard.keycode == ESCAPE)
 			{
-				mpEventSystem->fireEvent(QUIT_GAME);
+				gpEventSystem->fireEvent(QUIT_GAME);
 			}
 			else if (mEvent.mouse.button == RIGHT_CLICK)
 			{
 				Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				mpEventSystem->fireEvent(MousePosEvent(DELETE_UNIT, temp));
+				gpEventSystem->fireEvent(MousePosEvent(DELETE_UNIT, temp));
 			}
 			else if (mEvent.mouse.button == LEFT_CLICK)
 			{
 				Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				mpEventSystem->fireEvent(MousePosEvent(ADD_UNIT, temp));
+				gpEventSystem->fireEvent(MousePosEvent(ADD_UNIT, temp));
 			}
 			else if (mEvent.keyboard.keycode == SPACE)
 			{
-				mpEventSystem->fireEvent(FREEZE_ANIMATION);
+				gpEventSystem->fireEvent(FREEZE_ANIMATION);
 			}
 		}
+
+		/*
+		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
+		{
+			mShouldExit = true;
+		}
+		*/
 	}
 }
 
 
 void InputSystem::cleanup()
 {
+	al_uninstall_keyboard();
+	al_uninstall_mouse();
 	al_destroy_event_queue(mpEventQueue);
 	//delete mEventQueue;
 	mpEventQueue = NULL;

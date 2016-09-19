@@ -240,41 +240,39 @@ void Game::beginLoop()
 	
 void Game::processLoop()
 {
+	mpInputSystem->update();
+
 	//update units
 	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
 	mpAIUnit->update( LOOP_TARGET_TIME/1000.0f );
 	mpAIUnit2->update( LOOP_TARGET_TIME/1000.0f );
 	
-	//draw background
-	Sprite* pBackgroundSprite = mpSpriteManager->getSprite( BACKGROUND_SPRITE_ID );
-	pBackgroundSprite->draw( *(mpGraphicsSystem->getBackBuffer()), 0, 0 );
-
-	//draw units
-	mpUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
-	mpAIUnit->draw( GRAPHICS_SYSTEM->getBackBuffer() );
-	mpAIUnit2->draw( GRAPHICS_SYSTEM->getBackBuffer() );
+	
 
 	mpMessageManager->processMessagesForThisframe();
+	
 
-	//get input - should be moved someplace better
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state( &mouseState );
+	draw();
+	
+}
 
-	if( al_mouse_button_down( &mouseState, 1 ) )//left mouse click
-	{
-		Vector2D pos( mouseState.x, mouseState.y );
-		GameMessage* pMessage = new PlayerMoveToMessage( pos );
-		MESSAGE_MANAGER->addMessage( pMessage, 0 );
-	}
+void Game::draw()
+{
+	//draw background
+	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
+	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 
-	mpInputSystem->update();
+	//draw units
+	mpUnit->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpAIUnit->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpAIUnit2->draw(GRAPHICS_SYSTEM->getBackBuffer());
 
 	//create mouse text
 	stringstream mousePos;
 	mousePos << mpInputSystem->getMouseX() << ":" << mpInputSystem->getMouseY();
 
 	//write text at mouse position
-	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
+	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
 
 	mpGraphicsSystem->swap();
 }

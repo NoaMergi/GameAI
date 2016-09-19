@@ -4,9 +4,11 @@
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro.h>
 #include "EventSystem.h"
+#include "GameMessageManager.h"
 #include "Event.h"
 #include "Vector2D.h"
 #include "GraphicsSystem.h"
+#include "PlayerMoveToMessage.h"
 
 class InputSystem : public Trackable
 {

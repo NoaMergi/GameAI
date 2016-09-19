@@ -37,6 +37,7 @@ public:
 	//game loop
 	void beginLoop();
 	void processLoop();
+	void draw();
 	bool endLoop();
 
 	inline GraphicsSystem* getGraphicsSystem() const { return mpGraphicsSystem; };

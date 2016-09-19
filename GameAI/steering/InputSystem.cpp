@@ -39,14 +39,14 @@ void InputSystem::init(bool isMouseVisible)
 
 	if (isMouseVisible)
 	{
-		if (!al_hide_mouse_cursor(gpGame->getGraphicsSystem()->getDisplay()))
+		if (!al_hide_mouse_cursor(GRAPHICS_SYSTEM->getDisplay()))
 		{
 			printf("Mouse cursor not able to be hidden!\n");
 			std::terminate();
 		}
 	}
 
-	al_register_event_source(mpEventQueue, al_get_display_event_source(gpGame->getGraphicsSystem()->getDisplay()));
+	al_register_event_source(mpEventQueue, al_get_display_event_source(GRAPHICS_SYSTEM->getDisplay()));
 	al_register_event_source(mpEventQueue, al_get_keyboard_event_source());
 	al_register_event_source(mpEventQueue, al_get_mouse_event_source());
 	std::cout << ALLEGRO_KEY_A;
@@ -81,7 +81,26 @@ void InputSystem::update()
 			{
 				gpEventSystem->fireEvent(DELETE_UNIT);
 			}
+			/*
+			if (mEvent.mouse.button == LEFT_CLICK)
+			{
+				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
+				Vector2D pos(mEvent.mouse.x, mEvent.mouse.y);
+				GameMessage* pMessage = new PlayerMoveToMessage(pos);
+				MESSAGE_MANAGER->addMessage(pMessage, 0);
+			}*/
 		}
+		
+		ALLEGRO_MOUSE_STATE mouseState;
+		al_get_mouse_state(&mouseState);
+
+		if (al_mouse_button_down(&mouseState, 1))//left mouse click
+		{
+			Vector2D pos(mouseState.x, mouseState.y);
+			GameMessage* pMessage = new PlayerMoveToMessage(pos);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+
 
 	}
 }

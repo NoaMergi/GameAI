@@ -72,16 +72,16 @@ KinematicUnit* UnitManager::getPlayerUnit()
 	return nullptr;
 }
 
-void UnitManager::deleteUnit(int akey)
+void UnitManager::deleteUnit(int index)
 {/*
-	vector<KinematicUnit*>::iterator iterator = mUnitList.find(akey);
-
 	if (iterator != mUnitList.end())
 	{
 		delete *iterator;
 		mUnitList.erase(iterator);
-	}
-	*/
+	}*/
+	vector<KinematicUnit*>::iterator iterator = mUnitList.begin() + index;
+	delete *iterator;
+	mUnitList.erase(iterator);
 
 }
 
@@ -118,15 +118,35 @@ void UnitManager::draw(GraphicsBuffer* pBuffer)
 }
 
 void UnitManager::handleEvent(const Event& theEvent)
-{/*
-	const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
+{
+	if (theEvent.getType() == DELETE_UNIT)
+	{
+		if (mUnitList.size() <= 1)
+		{
+			gpEventSystem->fireEvent(QUIT_GAME);
+			return;
+		}
+		int start;
+
+		default_random_engine generator(mRandom());
+		if (doesPlayerExist)
+			start = 1;
+		else
+			start = 0;
+
+		std::uniform_int_distribution<int> distribution(start, mUnitList.size() - 1);
+		deleteUnit(distribution(generator));
+	}
+	
+	
+	//const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
 	if (theEvent.getType() == ADD_DINAMIC_ARRIVE)
 	{
 		KinematicUnit* tempUnit = new KinematicUnit(*mpCurrentUnit);
 		Vector2D tempPos(mousePosEvent.getPos().getX() - (tempUnit->getWidth() / 2.0), mousePosEvent.getPos().getY() - (tempUnit->getHight() / 2.0));
 		tempUnit->setPos(tempPos);
 		addUnit(tempUnit);
-	}
+	}/*
 	else
 	{
 		map<int, Unit*>::iterator iter;

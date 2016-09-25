@@ -1,7 +1,7 @@
 #pragma once
 
-#include <map>
 #include <vector>
+#include <random>
 #include "KinematicUnit.h"
 #include "EventListener.h"
 #include "GraphicsBuffer.h"
@@ -28,6 +28,7 @@ public:
 	void deleteUnit(int akey);
 
 	KinematicUnit* getPlayerUnit();
+	inline int getUnitNum() { return mUnitList.size(); }
 
 	void clear();
 
@@ -39,6 +40,8 @@ public:
 private:
 	vector<KinematicUnit*> mUnitList;
 	bool doesPlayerExist;
+	random_device mRandom;
+	
 
 };
 

@@ -68,27 +68,18 @@ void InputSystem::update()
 			else if (mEvent.mouse.button == A)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_ARRIVE);
-				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				//gpEventSystem->fireEvent(MousePosEvent(DELETE_UNIT, temp));
+
 			}
 			else if (mEvent.mouse.button == S)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_SEEK);
-				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				//gpEventSystem->fireEvent(MousePosEvent(ADD_UNIT, temp));
+
 			}
 			else if (mEvent.keyboard.keycode == D)
 			{
 				gpEventSystem->fireEvent(DELETE_UNIT);
 			}
-			/*
-			if (mEvent.mouse.button == LEFT_CLICK)
-			{
-				//Vector2D temp(mEvent.mouse.x, mEvent.mouse.y);
-				Vector2D pos(mEvent.mouse.x, mEvent.mouse.y);
-				GameMessage* pMessage = new PlayerMoveToMessage(pos);
-				MESSAGE_MANAGER->addMessage(pMessage, 0);
-			}*/
+
 		}
 		
 		ALLEGRO_MOUSE_STATE mouseState;

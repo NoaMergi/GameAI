@@ -22,6 +22,7 @@
 #include "Timer.h"
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
+#include "UnitManager.h"
 
 Game* gpGame = NULL;
 
@@ -167,21 +168,22 @@ bool Game::init()
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
 
+	mpUnitManager = new UnitManager();
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
 	Vector2D vel( 0.0f, 0.0f );
-	mpUnit = new KinematicUnit( pArrowSprite, pos, 1, vel, 0.0f, 200.0f, 10.0f );
+
+
+	mpUnitManager->addPlayer(new KinematicUnit(pArrowSprite, pos, 1, vel, 0.0f, 200.0f, 10.0f));
 	
+
 	Vector2D pos2( 1000.0f, 500.0f );
-	Vector2D vel2( 0.0f, 0.0f );
-	mpAIUnit = new KinematicUnit( pEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f );
-	//give steering behavior
-	mpAIUnit->dynamicArrive( mpUnit ); 
+	Vector2D vel2(0.0f, 0.0f);
+	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f), ARRIVE);
+
 
 	Vector2D pos3( 500.0f, 500.0f );
-	mpAIUnit2 = new KinematicUnit( pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f );
-	//give steering behavior
-	mpAIUnit2->dynamicSeek( mpUnit );  
+	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
 
 	return true;
 }
@@ -191,12 +193,8 @@ void Game::cleanup()
 	gpEventSystem->removeListenerFromAllEvents(this);
 
 	//delete units
-	delete mpUnit;
-	mpUnit = NULL;
-	delete mpAIUnit;
-	mpAIUnit = NULL;
-	delete mpAIUnit2;
-	mpAIUnit2 = NULL;
+	delete mpUnitManager;
+	mpUnitManager = nullptr;
 
 	//delete the timers
 	delete mpLoopTimer;
@@ -241,15 +239,14 @@ void Game::beginLoop()
 void Game::processLoop()
 {
 	mpInputSystem->update();
+	
 
 	//update units
-	mpUnit->update( LOOP_TARGET_TIME/1000.0f );
-	mpAIUnit->update( LOOP_TARGET_TIME/1000.0f );
-	mpAIUnit2->update( LOOP_TARGET_TIME/1000.0f );
+	mpUnitManager->update(LOOP_TARGET_TIME / 1000.0f);
 	
 	
-
 	mpMessageManager->processMessagesForThisframe();
+	
 	
 
 	draw();
@@ -263,9 +260,8 @@ void Game::draw()
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 
 	//draw units
-	mpUnit->draw(GRAPHICS_SYSTEM->getBackBuffer());
-	mpAIUnit->draw(GRAPHICS_SYSTEM->getBackBuffer());
-	mpAIUnit2->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+
 
 	//create mouse text
 	stringstream mousePos;

@@ -2,6 +2,7 @@
 #include "KinematicUnit.h"
 #include "GameMessageManager.h"
 #include "PlayerMoveToMessage.h"
+#include "UnitManager.h"
 
 PlayerMoveToMessage::PlayerMoveToMessage( const Vector2D& pos )
 :GameMessage(PLAYER_MOVETO_MESSAGE)
@@ -15,6 +16,6 @@ PlayerMoveToMessage::~PlayerMoveToMessage()
 
 void PlayerMoveToMessage::process()
 {
-	gpGame->getPlayerUnit()->arrive(mPos);
+	UNIT_MANAGER->getPlayerUnit()->arrive(mPos);
 }
 

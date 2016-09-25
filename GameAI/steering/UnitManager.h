@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <vector>
 #include "KinematicUnit.h"
 #include "EventListener.h"
 #include "GraphicsBuffer.h"
@@ -10,31 +11,35 @@
 
 using namespace std;
 
-class UnitManager : EventListener
+enum ai { SEEK, ARRIVE };
+
+class UnitManager : public EventListener
 {
 public:
 	UnitManager();
 	~UnitManager();
 	//KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
-	KinematicUnit* getCurrentUnit(){ return mpPlayer; }
-	void setCurrentUnit(KinematicUnit* aUnit){ mpPlayer = aUnit; }
 
 	KinematicUnit* getUnit(int akey);
-	void addUnit(KinematicUnit* aUnit);
-	void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
+	void addPlayer(KinematicUnit* aUnit);
+	void addPlayer(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel);
+	void addUnit(KinematicUnit* aUnit, ai behavior, KinematicUnit* target = nullptr);
+	void addUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, ai behavior, KinematicUnit* target = nullptr);
 	void deleteUnit(int akey);
+
+	KinematicUnit* getPlayerUnit();
 
 	void clear();
 
-	void update();
+	void update(float time);
 	void draw(GraphicsBuffer* pBuffer);
 
 	void handleEvent(const Event& theEvent);
 
 private:
-	map< int, KinematicUnit* > mUnitList;
-	KinematicUnit* mpPlayer;
-	static int mID;
+	vector<KinematicUnit*> mUnitList;
+	bool doesPlayerExist;
+
 };
 
 /*new Unit(mpsInstance->mGraphicsBufferManager.getGraphicBuffer("dardas"), dardasSheetRow, dardasSheetCollom, dardasSheetWidth, dardasSheetHeight,

@@ -8,6 +8,7 @@ UnitManager::UnitManager()
 	gpEventSystem->addListener(ADD_DINAMIC_ARRIVE, this);
 	gpEventSystem->addListener(ADD_DINAMIC_SEEK, this);
 	gpEventSystem->addListener(DELETE_UNIT, this);
+	gpEventSystem->addListener(MOVE_PLAYER, this);
 	doesPlayerExist = false;
 }
 
@@ -149,5 +150,10 @@ void UnitManager::handleEvent(const Event& theEvent)
 		Vector2D pos2(getPlayerUnit()->getPosition().getX() - 100, getPlayerUnit()->getPosition().getY());
 		Vector2D vel2(0.0f, 0.0f);
 		addUnit(new KinematicUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos2, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
+	}
+	else if (theEvent.getType() == MOVE_PLAYER)
+	{
+		const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
+		getPlayerUnit()->arrive(mousePosEvent.getPos());
 	}
 }

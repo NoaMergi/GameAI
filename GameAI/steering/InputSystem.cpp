@@ -88,8 +88,14 @@ void InputSystem::update()
 		if (al_mouse_button_down(&mouseState, 1))//left mouse click
 		{
 			Vector2D pos(mouseState.x, mouseState.y);
-			GameMessage* pMessage = new PlayerMoveToMessage(pos);
-			MESSAGE_MANAGER->addMessage(pMessage, 0);
+			
+			//new MousePosEvent(MOVE_PLAYER, pos)
+			
+
+			MousePosEvent pMessage(MOVE_PLAYER, pos);
+			gpEventSystem->fireEvent(pMessage);
+			//GameMessage* pMessage = new PlayerMoveToMessage(pos);
+			//MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 
 

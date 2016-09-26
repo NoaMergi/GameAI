@@ -65,12 +65,12 @@ void InputSystem::update()
 			{
 				gpEventSystem->fireEvent(QUIT_GAME);
 			}
-			else if (mEvent.mouse.button == A)
+			else if (mEvent.keyboard.keycode == A)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_ARRIVE);
 
 			}
-			else if (mEvent.mouse.button == S)
+			else if (mEvent.keyboard.keycode == S)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_SEEK);
 

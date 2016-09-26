@@ -8,6 +8,8 @@
 #include "Vector2D.h"
 #include "Event.h"
 #include "EventSystem.h"
+#include "Game.h"
+
 
 using namespace std;
 

@@ -1,4 +1,5 @@
 #include "UnitManager.h"
+#include "SpriteManager.h"
 
 
 
@@ -137,27 +138,16 @@ void UnitManager::handleEvent(const Event& theEvent)
 		std::uniform_int_distribution<int> distribution(start, mUnitList.size() - 1);
 		deleteUnit(distribution(generator));
 	}
-	
-	
-	//const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
-	if (theEvent.getType() == ADD_DINAMIC_ARRIVE)
+	else if (theEvent.getType() == ADD_DINAMIC_ARRIVE)
 	{
-		KinematicUnit* tempUnit = new KinematicUnit(*mpCurrentUnit);
-		Vector2D tempPos(mousePosEvent.getPos().getX() - (tempUnit->getWidth() / 2.0), mousePosEvent.getPos().getY() - (tempUnit->getHight() / 2.0));
-		tempUnit->setPos(tempPos);
-		addUnit(tempUnit);
-	}/*
-	else
+		Vector2D pos2(getPlayerUnit()->getPosition().getX() -200, getPlayerUnit()->getPosition().getY());
+		Vector2D vel2(0.0f, 0.0f);
+		addUnit(new KinematicUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos2, 1, vel2, 0.0f, 180.0f, 100.0f), ARRIVE);
+	}
+	else if(theEvent.getType() == ADD_DINAMIC_SEEK)
 	{
-		map<int, Unit*>::iterator iter;
-
-		for (iter = mUnitList.begin(); iter != mUnitList.end();++iter)
-		{
-			if (rectangleCollition(Meshulash(mousePosEvent.getPos().getX(), mousePosEvent.getPos().getY(), 1, 1), iter->second->getCollitionRectangle()))
-			{
-				deleteUnit(iter->first);
-				break;
-			}
-		}
-	}*/
+		Vector2D pos2(getPlayerUnit()->getPosition().getX() - 100, getPlayerUnit()->getPosition().getY());
+		Vector2D vel2(0.0f, 0.0f);
+		addUnit(new KinematicUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos2, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
+	}
 }

@@ -259,9 +259,9 @@ void Game::draw()
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite(BACKGROUND_SPRITE_ID);
 	pBackgroundSprite->draw(*(mpGraphicsSystem->getBackBuffer()), 0, 0);
 
+
 	//draw units
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
-
 
 	//create mouse text
 	stringstream mousePos;
@@ -269,6 +269,8 @@ void Game::draw()
 
 	//write text at mouse position
 	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
+
+	
 
 	mpGraphicsSystem->swap();
 }

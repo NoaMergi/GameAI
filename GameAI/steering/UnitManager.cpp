@@ -153,6 +153,8 @@ void UnitManager::handleEvent(const Event& theEvent)
 	}
 	else if (theEvent.getType() == MOVE_PLAYER)
 	{
+		if (getPlayerUnit() == nullptr)
+			return;
 		const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
 		getPlayerUnit()->arrive(mousePosEvent.getPos());
 	}

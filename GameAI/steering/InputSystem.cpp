@@ -79,6 +79,30 @@ void InputSystem::update()
 			{
 				gpEventSystem->fireEvent(DELETE_UNIT);
 			}
+			else if (mEvent.keyboard.keycode == I)
+			{
+				gpEventSystem->fireEvent(DEBUG);
+			}
+			else if (mEvent.keyboard.keycode == PLUS)
+			{
+				gpEventSystem->fireEvent(INCREASE_SELECTED_VALUE);
+			}
+			else if (mEvent.keyboard.keycode == MINUS)
+			{
+				gpEventSystem->fireEvent(REDUCE_SELECTED_VAULUE);
+			}
+			else if (mEvent.keyboard.keycode == V)
+			{
+				gpEventSystem->fireEvent(SELECT_VELOCITY);
+			}
+			else if (mEvent.keyboard.keycode == R)
+			{
+				gpEventSystem->fireEvent(SELECT_REACTION_RAD);
+			}
+			else if (mEvent.keyboard.keycode == A)
+			{
+				gpEventSystem->fireEvent(SELECT_ANGULAR_VELOCITY);
+			}	
 
 		}
 		

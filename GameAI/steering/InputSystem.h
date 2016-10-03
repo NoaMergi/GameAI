@@ -31,7 +31,7 @@ public:
 private:
 
 	const static enum KEYBOARD_KEYS
-	{ // https://www.allegro.cc/manual/5/keyboard.html
+	{ // https://searchcode.com/codesearch/view/15286926/
 		A = 1,
 		B = 2,
 		C = 3,
@@ -71,6 +71,7 @@ private:
 		ESCAPE = 59,
 		TILDE = 60,
 		MINUS = 61,
+		PLUS = 89,
 		EQUALS = 62,
 		BACKSPACE = 63,
 		TAB = 64,

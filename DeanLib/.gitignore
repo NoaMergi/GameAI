@@ -1,0 +1,5 @@
+.DS_Store
+/Debug
+/*.suo
+/*.DotSettings
+/*.sdf

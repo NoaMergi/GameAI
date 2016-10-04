@@ -23,6 +23,8 @@
 #include "KinematicUnit.h"
 #include "PlayerMoveToMessage.h"
 #include "UnitManager.h"
+#include "Font.h"
+#include "Text.h"
 
 Game* gpGame = NULL;
 
@@ -118,12 +120,14 @@ bool Game::init()
 	}
 
 	//actually load the font
+	/*
 	mpFont = al_load_ttf_font( "cour.ttf", 20, 0 );
 	if( mpFont == NULL )
 	{
 		printf( "ttf font file not loaded properly!\n" ); 
 		return false;
-	}
+	}*/
+	mpFont = new Font("cour.ttf", 20);
 
 	if( !al_init_primitives_addon() )
 	{
@@ -194,7 +198,11 @@ void Game::cleanup()
 
 	//delete units
 	delete mpUnitManager;
+	
 	mpUnitManager = nullptr;
+
+	delete mpFont;
+	mpFont = nullptr;
 
 	//delete the timers
 	delete mpLoopTimer;
@@ -214,11 +222,13 @@ void Game::cleanup()
 	mpInputSystem = NULL;
 	delete mpMessageManager;
 	mpMessageManager = NULL;
-
+	
+	
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
-	al_destroy_font(mpFont);
-	mpFont = NULL;
+	//al_destroy_font(mpFont);
+	//mpFont = NULL;
+	
 
 	//shutdown components
 	al_uninstall_audio();
@@ -268,7 +278,7 @@ void Game::draw()
 	mousePos << mpInputSystem->getMouseX() << ":" << mpInputSystem->getMouseY();
 
 	//write text at mouse position
-	al_draw_text(mpFont, al_map_rgb(255, 255, 255), mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
+	//al_draw_text(mpFont, al_map_rgb(255, 255, 255), mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
 
 	
 

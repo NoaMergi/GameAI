@@ -6,9 +6,10 @@
 #include "EventListener.h"
 #include "Defines.h"
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_font.h>
+
 #include <allegro5/allegro_audio.h>
 #include <string>
+#include "Font.h"
 
 class GraphicsSystem;
 class GraphicsBuffer;
@@ -19,6 +20,8 @@ class GameMessageManager;
 class Timer;
 class InputSystem;
 class UnitManager;
+class Font;
+class Text;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
 const IDType PLAYER_ICON_SPRITE_ID = 1;
@@ -48,7 +51,7 @@ public:
 	inline UnitManager* getUnitManager() { return mpUnitManager; };
 	inline Timer* getMasterTimer() const { return mpMasterTimer; };
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
-	inline ALLEGRO_FONT* getFont() const { return mpFont; };
+	//inline ALLEGRO_FONT* getFont() const { return mpFont; };
 
 
 	//inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
@@ -67,9 +70,11 @@ private:
 	UnitManager* mpUnitManager;
 	
 	bool mShouldExit;
+	Font* mpFont;
+	Text* mpText;
 
 	//should be somewhere else
-	ALLEGRO_FONT* mpFont;
+	//ALLEGRO_FONT* mpFont;
 	ALLEGRO_SAMPLE* mpSample;
 	IDType mBackgroundBufferID;
 	IDType mPlayerIconBufferID;

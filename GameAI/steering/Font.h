@@ -1,43 +1,27 @@
 #pragma once
 
-#include <allegro5/allegro_font.h>
+//#include <allegro5/allegro_font.h>
 #include "Color.h"
+#include <allegro5/allegro_font.h>
 #include <string>
 #include "Trackable.h"
 
-/*
 
-Data
-
-·         Allegro font
-
-·         Font size
-
-Functions
-
-·         Constructor/destructor
-
-·         Accessors (size)
-
-Color??? – Many ways to do this
-*/
-
-class Font : Trackable
+class Font : public Trackable
 {
 
 	friend class GraphicsSystem;
 
 public:
 	Font(std::string aMessage, int aFontSize);
-	~Font(){}
+	~Font();
 
 	int getSize(){ return mFontSize; }
+	inline const ALLEGRO_FONT* getFont() { return mpFont; }
 
 private:
 
 	ALLEGRO_FONT* mpFont;
 	int mFontSize;
-	Color mColor;
-	std::string mString;
 };
 

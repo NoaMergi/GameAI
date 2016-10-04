@@ -70,6 +70,15 @@
     <ClCompile Include="UnitManager.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -141,6 +150,15 @@
     <ClInclude Include="UnitManager.h">
       <Filter>Header Files\Units</Filter>
     </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -184,6 +202,12 @@
     </Filter>
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{6d1716b7-e4c4-401d-b365-44a52c384dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{fba6fe85-0c52-497c-b250-6e4ea9da70aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{57ca5317-dafe-4e73-83d9-c99f81f6f78a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

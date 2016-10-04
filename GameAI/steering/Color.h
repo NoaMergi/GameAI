@@ -6,8 +6,7 @@
 class Color : Trackable
 {
 public:
-	Color();
-	Color(int aR, int aG, int aB);
+	Color(int aR = 255, int aG = 255, int aB = 255, int aA = 255);
 	~Color(){};
 
 	int r(){ return mR; }
@@ -15,7 +14,7 @@ public:
 	int b(){ return mB; }
 	int a(){ return mA; }
 
-	void setColor(int aR, int aG, int aB);
+	void setColor(int aR = 255, int aG = 255, int aB = 255, int aA = 255);
 
 private:
 

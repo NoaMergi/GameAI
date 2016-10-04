@@ -1,29 +1,18 @@
 
 #include "Color.h"
 
-Color::Color()
+Color::Color(int aR, int aG, int aB, int aA)
 {
-	mR = 0;
-	mG = 0;
-	mB = 0;
-	mB = 0;
+	setColor(aR, aG, aB, aA);
 }
 
-Color::Color(int aR, int aG, int aB)
+
+void Color::setColor(int aR, int aG, int aB, int aA)
 {
 	mR = aR;
 	mG = aG;
 	mB = aB;
-
-}
-
-
-void Color::setColor(int aR, int aG, int aB)
-{
-	mR = aR;
-	mG = aG;
-	mB = aB;
-
+	mA = aA;
 }
 
 

@@ -17,7 +17,7 @@ public:
 	~Font();
 
 	int getSize(){ return mFontSize; }
-	inline const ALLEGRO_FONT* getFont() { return mpFont; }
+	inline ALLEGRO_FONT* getFont() { return mpFont; }
 
 private:
 

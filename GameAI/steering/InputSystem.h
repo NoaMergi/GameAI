@@ -30,7 +30,7 @@ public:
 	
 private:
 
-	const static enum KEYBOARD_KEYS
+	const enum KEYBOARD_KEYS
 	{ // https://searchcode.com/codesearch/view/15286926/
 		A = 1,
 		B = 2,
@@ -93,7 +93,7 @@ private:
 		MY_MAX_KEY = 86
 	};
 
-	const static enum MOUSE_KEYS
+	const enum MOUSE_KEYS
 	{
 		LEFT_CLICK = 1, RIGHT_CLICK = 2
 	};

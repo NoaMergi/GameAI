@@ -159,6 +159,9 @@
     <ClInclude Include="Text.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Ui.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

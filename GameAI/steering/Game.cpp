@@ -25,6 +25,7 @@
 #include "UnitManager.h"
 #include "Font.h"
 #include "Text.h"
+#include "Ui.h"
 
 Game* gpGame = NULL;
 
@@ -38,7 +39,6 @@ Game::Game()
 	,mpLoopTimer(NULL)
 	,mpMasterTimer(NULL)
 	,mShouldExit(false)
-	,mpFont(NULL)
 	,mpSample(NULL)
 	,mBackgroundBufferID(INVALID_ID)
 	//,mSmurfBufferID(INVALID_ID)
@@ -76,6 +76,8 @@ bool Game::init()
 
 	mpGraphicsBufferManager = new GraphicsBufferManager();
 	mpSpriteManager = new SpriteManager();
+
+	
 
 	//startup a lot of allegro stuff
 
@@ -119,6 +121,9 @@ bool Game::init()
 		return false;
 	}
 
+	mpUi = new UI();
+	mpUi->init();
+
 	//actually load the font
 	/*
 	mpFont = al_load_ttf_font( "cour.ttf", 20, 0 );
@@ -127,7 +132,7 @@ bool Game::init()
 		printf( "ttf font file not loaded properly!\n" ); 
 		return false;
 	}*/
-	mpFont = new Font("cour.ttf", 20);
+	//mpFont = new Font("cour.ttf", 20);
 
 	if( !al_init_primitives_addon() )
 	{
@@ -189,6 +194,8 @@ bool Game::init()
 	Vector2D pos3( 500.0f, 500.0f );
 	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
 
+	//mpText = new Text(mpFont, "xxxxxxxxxxxxxxxxx");
+
 	return true;
 }
 
@@ -200,9 +207,15 @@ void Game::cleanup()
 	delete mpUnitManager;
 	
 	mpUnitManager = nullptr;
+	/*
+	delete mpText;
+	mpText = nullptr;
 
 	delete mpFont;
-	mpFont = nullptr;
+	mpFont = nullptr;*/
+
+	delete mpUi;
+	mpUi = nullptr;
 
 	//delete the timers
 	delete mpLoopTimer;
@@ -279,8 +292,9 @@ void Game::draw()
 
 	//write text at mouse position
 	//al_draw_text(mpFont, al_map_rgb(255, 255, 255), mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
-
+	//mpText->draw(mpInputSystem->getMouseX(), mpInputSystem->getMouseY(), mousePos.str());
 	
+	mpUi->draw();
 
 	mpGraphicsSystem->swap();
 }

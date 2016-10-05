@@ -25,6 +25,7 @@
 #include <crtdbg.h>
 
 #include "Game.h"
+
 #include "GraphicsSystem.h"
 #include "GraphicsBuffer.h"
 #include "Sprite.h"
@@ -32,6 +33,7 @@
 #include "Timer.h"
 #include "PerformanceTracker.h"
 #include "MemoryTracker.h"
+#include "GlobalStates.h"
 
 using namespace std;
 
@@ -45,6 +47,7 @@ int main(int argc, char **argv)
 
 	//create the global game object
 	gpGame = new Game;
+	gpGlobalStates = new GlobalStates;
 	gpEventSystem = new EventSystem;
 	//init the game
 	bool goodGame = gpGame->init();
@@ -85,6 +88,8 @@ int main(int argc, char **argv)
 	gpGame->cleanup();
 	delete gpGame;
 	gpGame = NULL;
+	delete gpGlobalStates;
+	gpGlobalStates = nullptr;
 	delete gpEventSystem;
 	gpEventSystem = NULL;
 

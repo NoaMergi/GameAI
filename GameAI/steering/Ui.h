@@ -16,6 +16,7 @@ public:
 	~UI();
 
 	void addText(string id, Font* font, string text, Vector2D pos, Color color, int flag);
+	void addText(string id, Font* font, string text, Vector2D pos);
 	void addText(string id, Font* font, string text);
 
 	void init();
@@ -36,6 +37,8 @@ private:
 
 	map<string, Text*> mTextContainer;
 	Font* mpFont;
+	bool showUI;
+	const int selectedOffset = 20;
 	//vector<Sprite*> spriteContainer;
 
 };
@@ -52,6 +55,12 @@ UI::~UI()
 void UI::addText(string id, Font* font, string text, Vector2D pos, Color color, int flag)
 {
 	Text* txt = new Text(font, text, pos, color, flag);
+	mTextContainer.insert(pair<string, Text*>(id, txt));
+}
+
+void UI::addText(string id, Font* font, string text, Vector2D pos)
+{
+	Text* txt = new Text(font, text, pos);
 	mTextContainer.insert(pair<string, Text*>(id, txt));
 }
 
@@ -72,6 +81,15 @@ void UI::init()
 
 	mpFont = new Font("cour.ttf", 20);
 	addText("mouse", mpFont, "xxx");
+
+	Vector2D uiPos(mpFont->getSize(), mpFont->getSize());
+	Vector2D offsetPos(0, mpFont->getSize());
+	Color col;
+
+	addText("evc", mpFont, "Enemy velocity control", uiPos, col, LEFT);
+	addText("rr", mpFont, "Reaction radius", uiPos + offsetPos, col, LEFT);
+	addText("av", mpFont, "angular velocity", uiPos + offsetPos + offsetPos, col, LEFT);
+	showUI = false;
 }
 
 Text* UI::getText(string id)
@@ -83,7 +101,9 @@ void UI::draw()
 {
 	map<string, Text*>::iterator iter;
 
-	for (iter = mTextContainer.begin(); iter != mTextContainer.end(); ++iter)
+	mTextContainer.begin()->second->draw();
+
+	for (iter = ++mTextContainer.begin(); iter != mTextContainer.end(); ++iter)
 	{
 		iter->second->draw();
 	}

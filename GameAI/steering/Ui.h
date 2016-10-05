@@ -26,7 +26,7 @@ public:
 
 	void draw();
 
-	void update();
+	void update(float time);
 
 	void clear();
 
@@ -63,6 +63,13 @@ void UI::addText(string id, Font* font, string text)
 
 void UI::init()
 {
+	al_init_font_addon();
+	if (!al_init_ttf_addon())
+	{
+		printf("ttf font addon not initted properly!\n");
+		return;
+	}
+
 	mpFont = new Font("cour.ttf", 20);
 	addText("mouse", mpFont, "xxx");
 }
@@ -82,12 +89,16 @@ void UI::draw()
 	}
 }
 
-void UI::update()
+void UI::update(float time)
 {
 	stringstream mousePos;
-	mousePos << gpGame->getInputSystem()->getMouseX() << ":" << gpGame->getInputSystem()->getMouseY();
+	float x = gpGame->getInputSystem()->getMouseX();
+	float y = gpGame->getInputSystem()->getMouseY();
+
+	mousePos << x << ":" << y;
 
 	getText("mouse")->setText(mousePos.str());
+	getText("mouse")->setPos(Vector2D(x,y));
 
 }
 
@@ -106,5 +117,5 @@ void UI::clear()
 
 void UI::handleEvent(const Event& theEvent)
 {
-
+	
 }

@@ -109,17 +109,7 @@ bool Game::init()
 
 	mpInputSystem = new InputSystem();
 	mpInputSystem->init(true);
-
-
-
-
-	//should be somewhere else!
-	al_init_font_addon();
-	if( !al_init_ttf_addon() )
-	{
-		printf( "ttf font addon not initted properly!\n" ); 
-		return false;
-	}
+	
 
 	mpUi = new UI();
 	mpUi->init();
@@ -194,7 +184,7 @@ bool Game::init()
 	Vector2D pos3( 500.0f, 500.0f );
 	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
 
-	//mpText = new Text(mpFont, "xxxxxxxxxxxxxxxxx");
+
 
 	return true;
 }
@@ -207,12 +197,7 @@ void Game::cleanup()
 	delete mpUnitManager;
 	
 	mpUnitManager = nullptr;
-	/*
-	delete mpText;
-	mpText = nullptr;
 
-	delete mpFont;
-	mpFont = nullptr;*/
 
 	delete mpUi;
 	mpUi = nullptr;
@@ -266,6 +251,7 @@ void Game::processLoop()
 
 	//update units
 	mpUnitManager->update(LOOP_TARGET_TIME / 1000.0f);
+	mpUi->update(LOOP_TARGET_TIME / 1000.0f);
 	
 	
 	mpMessageManager->processMessagesForThisframe();

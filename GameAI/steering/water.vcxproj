@@ -67,6 +67,7 @@
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Ui.cpp" />
     <ClCompile Include="UnitManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

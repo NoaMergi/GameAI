@@ -47,8 +47,10 @@ int main(int argc, char **argv)
 
 	//create the global game object
 	gpGame = new Game;
-	gpGlobalStates = new GlobalStates;
+	
 	gpEventSystem = new EventSystem;
+
+	gpGlobalStates = new GlobalStates;
 	//init the game
 	bool goodGame = gpGame->init();
 	if(!goodGame) 
@@ -80,8 +82,8 @@ int main(int argc, char **argv)
 		shouldExit = gpGame->endLoop();
 
 		gpPerformanceTracker->stopTracking("loop");
-		cout << "loop took:" << gpPerformanceTracker->getElapsedTime("loop") << "ms";
-		cout << "draw took:" << gpPerformanceTracker->getElapsedTime("draw") << "ms\n";
+		//cout << "loop took:" << gpPerformanceTracker->getElapsedTime("loop") << "ms";
+		//cout << "draw took:" << gpPerformanceTracker->getElapsedTime("draw") << "ms\n";
 
 	}
 

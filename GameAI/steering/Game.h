@@ -19,7 +19,7 @@ class GameMessageManager;
 class Timer;
 class InputSystem;
 class UnitManager;
-class UI;
+class Ui;
 class Text;
 
 const IDType BACKGROUND_SPRITE_ID = 0;
@@ -68,7 +68,7 @@ private:
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	UnitManager* mpUnitManager;
-	UI* mpUi;
+	Ui* mpUi;
 	
 	bool mShouldExit;
 	//Font* mpFont;

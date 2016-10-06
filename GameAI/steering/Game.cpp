@@ -110,8 +110,14 @@ bool Game::init()
 	mpInputSystem = new InputSystem();
 	mpInputSystem->init(true);
 	
+	al_init_font_addon();
+	if (!al_init_ttf_addon())
+	{
+		printf("ttf font addon not initted properly!\n");
+		return false;
+	}
 
-	mpUi = new UI();
+	mpUi = new Ui();
 	mpUi->init();
 
 	//actually load the font

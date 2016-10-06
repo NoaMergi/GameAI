@@ -64,12 +64,12 @@ void InputSystem::update()
 			if (mEvent.keyboard.keycode == ESCAPE)
 			{
 				gpEventSystem->fireEvent(QUIT_GAME);
-			}
+			}/*
 			else if (mEvent.keyboard.keycode == A)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_ARRIVE);
 
-			}
+			}*/
 			else if (mEvent.keyboard.keycode == S)
 			{
 				gpEventSystem->fireEvent(ADD_DINAMIC_SEEK);
@@ -93,7 +93,7 @@ void InputSystem::update()
 			}
 			else if (mEvent.keyboard.keycode == V)
 			{
-				gpEventSystem->fireEvent(SELECT_VELOCITY);
+				gpEventSystem->fireEvent(SELECT_ENEMY_VELOCITY);
 			}
 			else if (mEvent.keyboard.keycode == R)
 			{

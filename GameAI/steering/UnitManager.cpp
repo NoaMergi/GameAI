@@ -46,7 +46,7 @@ void UnitManager::addPlayer(Sprite *pSprite, const Vector2D &position, float ori
 	addPlayer(tempUnit);
 }
 
-void UnitManager::addUnit(KinematicUnit* aUnit, ai behavior, KinematicUnit* target)
+void UnitManager::addUnit(KinematicUnit* aUnit, Ai behavior, KinematicUnit* target)
 {
 	//set ai behavior
 	KinematicUnit* theTarget = target;
@@ -61,7 +61,7 @@ void UnitManager::addUnit(KinematicUnit* aUnit, ai behavior, KinematicUnit* targ
 	mUnitList.push_back(aUnit);
 }
 
-void UnitManager::addUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, ai behavior, KinematicUnit* target)
+void UnitManager::addUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, Ai behavior, KinematicUnit* target)
 {
 	KinematicUnit* tempUnit = new KinematicUnit(pSprite, position, orientation, velocity, rotationVel);
 	addUnit(tempUnit, behavior);

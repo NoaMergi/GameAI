@@ -85,6 +85,9 @@
     <ClCompile Include="Ui.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="BehaviorManager.cpp">
+      <Filter>Source Files\Steering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="GlobalStates.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorManager.h">
+      <Filter>Header Files\Steering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

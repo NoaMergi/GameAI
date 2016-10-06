@@ -9,7 +9,7 @@ enum EventType;
 
 using namespace std;
 
-class EventSystem:public Trackable
+class EventSystem : public Trackable
 {
 public:
 	EventSystem();

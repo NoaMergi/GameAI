@@ -11,22 +11,23 @@
 #include "Game.h"
 
 
+
 using namespace std;
 
-enum ai { SEEK, ARRIVE };
+enum Ai { SEEK, ARRIVE, FLEE, WONDER };
 
 class UnitManager : public EventListener
 {
 public:
 	UnitManager();
 	~UnitManager();
-	//KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
+
 
 	KinematicUnit* getUnit(int akey);
 	void addPlayer(KinematicUnit* aUnit);
 	void addPlayer(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel);
-	void addUnit(KinematicUnit* aUnit, ai behavior, KinematicUnit* target = nullptr);
-	void addUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, ai behavior, KinematicUnit* target = nullptr);
+	void addUnit(KinematicUnit* aUnit, Ai behavior, KinematicUnit* target = nullptr);
+	void addUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, Ai behavior, KinematicUnit* target = nullptr);
 	void deleteUnit(int akey);
 
 	KinematicUnit* getPlayerUnit();

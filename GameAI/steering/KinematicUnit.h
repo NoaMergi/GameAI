@@ -3,6 +3,7 @@
 #include "Kinematic.h"
 #include "Steering.h"
 
+
 /*KinematicUnit - a unit that is derived from the Kinematic class.  Adds behaviors and max speeds and a current Steering.
 
 Dean Lawson
@@ -55,6 +56,9 @@ private:
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxVelocity;
 	float mMaxAcceleration;
+
+	//BehaviorManager* mpBehaviorManager;
+
 
 	void setSteering( Steering* pSteering );
 

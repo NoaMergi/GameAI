@@ -10,6 +10,7 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "UnitManager.h"
+#include "BehaviorManager.h"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
+	//delete mpBehaviorManager;
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -103,19 +105,19 @@ void KinematicUnit::wander()
 
 void KinematicUnit::dynamicSeek( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, UNIT_MANAGER->getPlayerUnit() );
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, pTarget);
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicFlee( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering(this, UNIT_MANAGER->getPlayerUnit(), true);
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering(this, pTarget, true);
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 {
-	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering(this, UNIT_MANAGER->getPlayerUnit());
+	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering(this, pTarget);
 	setSteering( pDynamicArriveSteering );
 }
 

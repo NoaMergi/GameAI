@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BehaviorManager.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="UnitManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BehaviorManager.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />

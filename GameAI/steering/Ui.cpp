@@ -33,7 +33,7 @@ void Ui::init()
 {
 	gpEventSystem->addListener(INCREASE_SELECTED_VALUE, this);
 	gpEventSystem->addListener(REDUCE_SELECTED_VAULUE, this);
-	gpEventSystem->addListener(SELECT_VELOCITY, this);
+	gpEventSystem->addListener(SELECT_ENEMY_VELOCITY, this);
 	gpEventSystem->addListener(SELECT_REACTION_RAD, this);
 	gpEventSystem->addListener(SELECT_ANGULAR_VELOCITY, this);
 

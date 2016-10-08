@@ -23,11 +23,13 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
 {
+	mpBehaviorManager = nullptr;
 }
 
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
+	delete mpBehaviorManager;
 	//delete mpBehaviorManager;
 }
 
@@ -39,6 +41,11 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 void KinematicUnit::update(float time)
 {
 	Steering* steering;
+
+	if (mpBehaviorManager)
+	{
+		mpBehaviorManager->setBehavior();
+	}
 	if( mpCurrentSteering != NULL )
 	{
 		steering = mpCurrentSteering->getSteering();
@@ -119,5 +126,10 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 {
 	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering(this, pTarget);
 	setSteering( pDynamicArriveSteering );
+}
+
+void KinematicUnit::setBehaviorManager(Ai defaultBehavior, Ai changedBehavior, KinematicUnit* pTarget)
+{
+	mpBehaviorManager = new BehaviorManager(defaultBehavior, changedBehavior, this, pTarget);
 }
 

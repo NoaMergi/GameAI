@@ -36,10 +36,11 @@ void Ui::init()
 	gpEventSystem->addListener(SELECT_ENEMY_VELOCITY, this);
 	gpEventSystem->addListener(SELECT_REACTION_RAD, this);
 	gpEventSystem->addListener(SELECT_ANGULAR_VELOCITY, this);
+	gpEventSystem->addListener(DEBUG, this);
 
 
 	mpFont = new Font("cour.ttf", 20);
-	addText("mouse", mpFont, "xxx");
+	
 
 	Vector2D uiPos(mpFont->getSize(), mpFont->getSize());
 	Vector2D offsetPos(0, mpFont->getSize());
@@ -48,6 +49,8 @@ void Ui::init()
 	addText("evc", mpFont, "Enemy velocity control", uiPos, col, LEFT);
 	addText("rr", mpFont, "Reaction radius", uiPos + offsetPos, col, LEFT);
 	addText("av", mpFont, "angular velocity", uiPos + offsetPos + offsetPos, col, LEFT);
+
+	addText("mouse", mpFont, "xxx");
 	showUI = false;
 }
 
@@ -60,11 +63,16 @@ void Ui::draw()
 {
 	map<string, Text*>::iterator iter;
 
-	mTextContainer.begin()->second->draw();
-
-	for (iter = ++mTextContainer.begin(); iter != mTextContainer.end(); ++iter)
+	if (showUI)
 	{
-		iter->second->draw();
+		for (iter = mTextContainer.begin(); iter != mTextContainer.end(); ++iter)
+		{
+			iter->second->draw();
+		}
+	}
+	else
+	{
+		getText("mouse")->draw();
 	}
 }
 
@@ -99,5 +107,9 @@ void Ui::handleEvent(const Event& theEvent)
 	if (theEvent.getType() == INCREASE_SELECTED_VALUE)
 	{
 		//getText("evc")->setPos()
+	}
+	else if (theEvent.getType() == DEBUG)
+	{
+		showUI = !showUI;
 	}
 }

@@ -9,6 +9,8 @@ UnitManager::UnitManager()
 	gpEventSystem->addListener(ADD_DINAMIC_SEEK, this);
 	gpEventSystem->addListener(DELETE_UNIT, this);
 	gpEventSystem->addListener(MOVE_PLAYER, this);
+	gpEventSystem->addListener(ADD_WANDER_AND_FLEE, this);
+	gpEventSystem->addListener(ADD_WANDER_AND_SEEK, this);
 	doesPlayerExist = false;
 }
 
@@ -157,5 +159,22 @@ void UnitManager::handleEvent(const Event& theEvent)
 			return;
 		const MousePosEvent& mousePosEvent = static_cast<const MousePosEvent&>(theEvent);
 		getPlayerUnit()->arrive(mousePosEvent.getPos());
+	}
+	else if (theEvent.getType() == ADD_WANDER_AND_FLEE)
+	{
+		Vector2D pos2(getPlayerUnit()->getPosition().getX() + 100, getPlayerUnit()->getPosition().getY());
+		Vector2D vel2(0.0f, 0.0f);
+		KinematicUnit* unit = new KinematicUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos2, 1, vel2, 0.0f, 180.0f, 100.0f);
+		unit->setBehaviorManager(WONDER, FLEE, getPlayerUnit());
+		addUnit(unit, WONDER);
+
+	}
+	else if (theEvent.getType() == ADD_WANDER_AND_SEEK)
+	{
+		Vector2D pos2(getPlayerUnit()->getPosition().getX() - 200, getPlayerUnit()->getPosition().getY());
+		Vector2D vel2(0.0f, 0.0f);
+		KinematicUnit* unit = new KinematicUnit(gpGame->getSpriteManager()->getSprite(AI_ICON_SPRITE_ID), pos2, 1, vel2, 0.0f, 180.0f, 100.0f);
+		unit->setBehaviorManager(WONDER, SEEK, getPlayerUnit());
+		addUnit(unit, WONDER);
 	}
 }

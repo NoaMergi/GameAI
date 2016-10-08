@@ -14,6 +14,7 @@ Champlain College
 //forward declarations
 class Sprite;
 class GraphicsBuffer;
+class BehaviorManager;
 
 extern Steering gNullSteering;//global object - can point to it for a "NULL" Steering
 
@@ -49,6 +50,7 @@ public:
 	void dynamicSeek( KinematicUnit* pTarget );
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
+	void setBehaviorManager(Ai defaultBehavior, Ai changedBehavior, KinematicUnit* pTarget);
 
 private:
 	Sprite* mpSprite;
@@ -57,7 +59,7 @@ private:
 	float mMaxVelocity;
 	float mMaxAcceleration;
 
-	//BehaviorManager* mpBehaviorManager;
+	BehaviorManager* mpBehaviorManager;
 
 
 	void setSteering( Steering* pSteering );

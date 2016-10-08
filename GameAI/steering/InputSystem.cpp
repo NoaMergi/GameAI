@@ -72,8 +72,11 @@ void InputSystem::update()
 			}*/
 			else if (mEvent.keyboard.keycode == S)
 			{
-				gpEventSystem->fireEvent(ADD_DINAMIC_SEEK);
-
+				gpEventSystem->fireEvent(ADD_WANDER_AND_SEEK);
+			}
+			else if (mEvent.keyboard.keycode == F)
+			{
+				gpEventSystem->fireEvent(ADD_WANDER_AND_FLEE);
 			}
 			else if (mEvent.keyboard.keycode == D)
 			{

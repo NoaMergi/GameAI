@@ -17,6 +17,8 @@
 #include "Kinematic.h"
 #include "Trackable.h"
 
+enum Ai { SEEK, ARRIVE, FLEE, WONDER };
+
 class Steering: public Trackable
 {
 public:

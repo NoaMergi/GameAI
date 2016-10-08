@@ -180,15 +180,10 @@ bool Game::init()
 
 
 	mpUnitManager->addPlayer(new KinematicUnit(pArrowSprite, pos, 1, vel, 0.0f, 200.0f, 10.0f));
-	
-
-	Vector2D pos2( 1000.0f, 500.0f );
-	Vector2D vel2(0.0f, 0.0f);
-	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f), ARRIVE);
 
 
-	Vector2D pos3( 500.0f, 500.0f );
-	mpUnitManager->addUnit(new KinematicUnit(pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f), SEEK);
+	gpEventSystem->fireEvent(ADD_WANDER_AND_FLEE);
+	gpEventSystem->fireEvent(ADD_WANDER_AND_SEEK);
 
 
 

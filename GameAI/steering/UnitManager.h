@@ -14,7 +14,7 @@
 
 using namespace std;
 
-enum Ai { SEEK, ARRIVE, FLEE, WONDER };
+
 
 class UnitManager : public EventListener
 {

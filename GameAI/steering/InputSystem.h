@@ -71,7 +71,7 @@ private:
 		ESCAPE = 59,
 		TILDE = 60,
 		MINUS = 61,
-		PLUS = 89,
+		PLUS = 62,
 		EQUALS = 62,
 		BACKSPACE = 63,
 		TAB = 64,

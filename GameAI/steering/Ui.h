@@ -31,9 +31,14 @@ public:
 
 	void clear();
 
+	
+
 	void handleEvent(const Event& theEvent) override;
 
 private:
+
+	void resetPos();
+	void showSelection(string selection);
 
 	map<string, Text*> mTextContainer;
 	Font* mpFont;

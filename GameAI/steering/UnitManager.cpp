@@ -11,6 +11,8 @@ UnitManager::UnitManager()
 	gpEventSystem->addListener(MOVE_PLAYER, this);
 	gpEventSystem->addListener(ADD_WANDER_AND_FLEE, this);
 	gpEventSystem->addListener(ADD_WANDER_AND_SEEK, this);
+	gpEventSystem->addListener(ENEMY_VELOCITY_CHANGED, this);
+	
 	doesPlayerExist = false;
 }
 

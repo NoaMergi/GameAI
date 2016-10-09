@@ -5,13 +5,14 @@
 
 GlobalStates* gpGlobalStates = nullptr;
 
-GlobalStates::GlobalStates(float enemyVel, float reactionRad, float angularVal, float change, ControlState state)
+
+GlobalStates::GlobalStates(float enemyVel, float reactionRad, float angularVal)
 {
 	mGlobalEnemyVelocity = enemyVel;
 	mGlobalReactionRadius = reactionRad;
 	mGlobalAngularVelocity = angularVal;
-	mCurrentState = state;
-	mChange = change;
+
+	mCurrentState = NULL_STATE;
 
 	gpEventSystem->addListener(INCREASE_SELECTED_VALUE, this);
 	gpEventSystem->addListener(REDUCE_SELECTED_VAULUE, this);
@@ -31,35 +32,56 @@ void GlobalStates::handleEvent(const Event& theEvent)
 	if (theEvent.getType() == SELECT_ENEMY_VELOCITY)
 	{
 		mCurrentState = ENEMY_VELOCITY_CONTROL;
-		std::cout << mCurrentState;
 	}
 	else if (theEvent.getType() == SELECT_REACTION_RAD)
 	{
 		mCurrentState = REACTION_RADIUS;
-		std::cout << mCurrentState;
 	}
 	else if (theEvent.getType() == SELECT_ANGULAR_VELOCITY)
 	{
 		mCurrentState = ANGULAR_VELOCITY;
-		std::cout << mCurrentState;
 	}
 	else if (theEvent.getType() == INCREASE_SELECTED_VALUE)
 	{
 		if (mCurrentState == ENEMY_VELOCITY_CONTROL)
-			mGlobalEnemyVelocity += mChange;
-		else if (mCurrentState == SELECT_REACTION_RAD)
-			mGlobalReactionRadius += mChange;
-		else if (mCurrentState == SELECT_ANGULAR_VELOCITY)
-			mGlobalAngularVelocity += mChange;
+		{
+			mGlobalEnemyVelocity += ENEMY_VEL_CHANGE;
+			StatChangeEvent event(ENEMY_VELOCITY_CHANGED, mGlobalEnemyVelocity);
+			gpEventSystem->fireEvent(event);
+		}
+		else if (mCurrentState == REACTION_RADIUS)
+		{
+			mGlobalReactionRadius += REACTION_RAD_CHANGE;
+			StatChangeEvent event(REACTION_RAD_CHANGED, mGlobalReactionRadius);
+			gpEventSystem->fireEvent(event);
+		}
+		else if (mCurrentState == ANGULAR_VELOCITY)
+		{
+			mGlobalAngularVelocity += ANGULAR_VEL_CHANGE;
+			StatChangeEvent event(ANGULAR_VELOCITY_CHANGED, mGlobalAngularVelocity);
+			gpEventSystem->fireEvent(event);
+		}
 	}
 	else if (theEvent.getType() == REDUCE_SELECTED_VAULUE)
 	{
-		if (mCurrentState == ENEMY_VELOCITY_CONTROL && mGlobalEnemyVelocity > 0)
-			mGlobalEnemyVelocity -= mChange;
-		else if (mCurrentState == SELECT_REACTION_RAD && mGlobalReactionRadius > 0)
-			mGlobalReactionRadius -= mChange;
-		else if (mCurrentState == SELECT_ANGULAR_VELOCITY && mGlobalAngularVelocity > 0)
-			mGlobalAngularVelocity -= mChange;
+		if (mCurrentState == ENEMY_VELOCITY_CONTROL && mGlobalEnemyVelocity - ENEMY_VEL_CHANGE > 0)
+		{
+			mGlobalEnemyVelocity -= ENEMY_VEL_CHANGE;
+			StatChangeEvent event(ENEMY_VELOCITY_CHANGED, mGlobalEnemyVelocity);
+			gpEventSystem->fireEvent(event);
+		}
+		else if (mCurrentState == REACTION_RADIUS && mGlobalReactionRadius - REACTION_RAD_CHANGE > 0)
+		{
+			mGlobalReactionRadius -= REACTION_RAD_CHANGE;
+			StatChangeEvent event(REACTION_RAD_CHANGED, mGlobalReactionRadius);
+			gpEventSystem->fireEvent(event);
+		}
+		else if (mCurrentState == ANGULAR_VELOCITY && mGlobalAngularVelocity - ANGULAR_VEL_CHANGE > 0)
+		{
+			mGlobalAngularVelocity -= ANGULAR_VEL_CHANGE;
+			StatChangeEvent event(ANGULAR_VELOCITY_CHANGED, mGlobalAngularVelocity);
+			gpEventSystem->fireEvent(event);
+		}
 	}
 }
 

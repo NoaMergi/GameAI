@@ -2,6 +2,7 @@
 
 #include "Kinematic.h"
 #include "Steering.h"
+#include "EventListener.h"
 
 
 /*KinematicUnit - a unit that is derived from the Kinematic class.  Adds behaviors and max speeds and a current Steering.
@@ -22,7 +23,7 @@ extern Steering gNullSteering;//global object - can point to it for a "NULL" Ste
 //(keeps unit from spinning in place after stopping
 const float MIN_VELOCITY_TO_TURN_SQUARED = 1.0f;
 
-class KinematicUnit: public Kinematic
+class KinematicUnit: public Kinematic, public EventListener
 {
 public:
 	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
@@ -51,6 +52,8 @@ public:
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
 	void setBehaviorManager(Ai defaultBehavior, Ai changedBehavior, KinematicUnit* pTarget);
+
+	void handleEvent(const Event& theEvent) override;
 
 private:
 	Sprite* mpSprite;

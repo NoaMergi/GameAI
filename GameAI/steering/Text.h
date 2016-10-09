@@ -24,6 +24,7 @@ public:
 	~Text();
 
 	inline void setText(string text) { mText = text; }
+	inline Vector2D getPos() { return mPos; }
 	inline void setPos(Vector2D pos) { mPos = pos; }
 
 	void draw();

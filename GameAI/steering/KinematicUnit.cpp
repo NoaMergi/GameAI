@@ -24,13 +24,17 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxAcceleration(maxAcceleration)
 {
 	mpBehaviorManager = nullptr;
+
+	gpEventSystem->addListener(REACTION_RAD_CHANGED, this);
+	gpEventSystem->addListener(ENEMY_VELOCITY_CHANGED, this);
+	gpEventSystem->addListener(ANGULAR_VELOCITY_CHANGED, this);
 }
 
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
 	delete mpBehaviorManager;
-	//delete mpBehaviorManager;
+	gpEventSystem->removeListenerFromAllEvents(this);
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -133,3 +137,23 @@ void KinematicUnit::setBehaviorManager(Ai defaultBehavior, Ai changedBehavior, K
 	mpBehaviorManager = new BehaviorManager(defaultBehavior, changedBehavior, this, pTarget);
 }
 
+
+void KinematicUnit::handleEvent(const Event& theEvent)
+{
+	const StatChangeEvent& stateChangeEvent = static_cast<const StatChangeEvent&>(theEvent);
+	if (mpBehaviorManager)
+	{
+		if (theEvent.getType() == REACTION_RAD_CHANGED)
+		{
+			mpBehaviorManager->setReactionRad(stateChangeEvent.getVal());
+		}
+		else if (theEvent.getType() == ENEMY_VELOCITY_CHANGED)
+		{
+			mMaxVelocity = stateChangeEvent.getVal();
+		}
+		else if (theEvent.getType() == ANGULAR_VELOCITY_CHANGED)
+		{
+			//mMaxAcceleration = stateChangeEvent
+		}
+	}
+}

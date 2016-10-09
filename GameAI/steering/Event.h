@@ -10,7 +10,7 @@ enum EventType
 {
 	INVALID_EVENT_TYPE = -1,
 	ADD_DINAMIC_ARRIVE, ADD_DINAMIC_SEEK, DELETE_UNIT, QUIT_GAME, MOVE_PLAYER, DEBUG, INCREASE_SELECTED_VALUE, REDUCE_SELECTED_VAULUE, SELECT_ENEMY_VELOCITY, SELECT_REACTION_RAD, 
-	SELECT_ANGULAR_VELOCITY, ADD_WANDER_AND_SEEK, ADD_WANDER_AND_FLEE,
+	SELECT_ANGULAR_VELOCITY, ADD_WANDER_AND_SEEK, ADD_WANDER_AND_FLEE, ENEMY_VELOCITY_CHANGED, REACTION_RAD_CHANGED, ANGULAR_VELOCITY_CHANGED,
 	/*
 	A, B, C, D,	E,	F,	G,	H,	I,	J,	K,	L,	M,	N,	O,	P,	Q,	R,	S,	T,	U,	V,	W,	X,	Y,	Z,	
 	N0, N1, N2, N3, N4, N5, N6, N7, N8, N9,
@@ -52,3 +52,18 @@ private:
 
 	Vector2D mousePos; 
 };
+
+class StatChangeEvent : public Event
+{
+public:
+	StatChangeEvent(EventType aType, float aValue) : Event(aType) { value = aValue; }
+	~StatChangeEvent() {};
+
+	const float& getVal() const { return value; }
+
+private:
+
+	float value;
+};
+
+

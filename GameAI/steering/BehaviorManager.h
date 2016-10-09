@@ -13,6 +13,11 @@ public:
 	void setBehavior();
 	void getBehavior(Ai behavior);
 
+	void setReactionRad(float rad) 
+	{ 
+		mChangeRad = rad; 
+	}
+
 private:
 
 	Ai mDefaultBehavior;
